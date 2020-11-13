@@ -40,9 +40,7 @@
     var b="<span class='ml-2 text-white p-2 my-2'>Sort By Company Name ></span>";
     var url="";
     for(i=0;i<26;i++){
-        url=String.fromCharCode(65+i);
-        console.log(url);
-        b+="<button class='ml-2 text-white p-2 hover:bg-red-400 my-2'><a href='search.php?let="+String.fromCharCode(65+i)+"'>"+String.fromCharCode(65+i)+"</a></button>";
+        b+="<a href='search.php?let="+String.fromCharCode(65+i)+"'><button class='ml-2 text-white p-2 hover:bg-red-400 my-2'>"+String.fromCharCode(65+i)+"</button></a>";
         console.log(i);
     }
     document.getElementById("Sort").innerHTML=b;
@@ -50,6 +48,8 @@
     var details="";
 </script>
 <?php
+if(isset($_POST['city']) && isset($_POST['type']) && isset($_POST['c_name']))
+{
 $con = new mysqli("localhost", "root", "", "Companies");
 $city=$_POST['city'];
 $type=$_POST['type'];
@@ -60,15 +60,16 @@ if ($result = $con->query($query)) {
     while ($row = $result->fetch_assoc()) {
        
         echo '<div class="my-4 bg-gray-200 rounded ml-20 mr-20 p-2"><table>'.
-        '<tr><td>Industry:'.$row["Name_of_the_Company"].'</td></tr>' .
-        '<tr><td>Company Type:'.$row["Type_of_Organization"].'</td></tr> '.
-        '<tr><td>Level of Office:</td></tr> '.
-        '<tr><td>Location   : '.$row["Origin"].'</td></tr>'.
-        '<tr><td>Phone No   :'.$row["Contact_Person_Phone_No"].'</td></tr> '.
-        '<tr><td>Website    : '.$row["Website"].'</td></tr>'.
+        '<tr><td>Industry</td><td>&nbsp;:&nbsp;'.$row["Name_of_the_Company"].'</td></tr>' .
+        '<tr><td>Company Type</td><td>&nbsp;:&nbsp;'.$row["Type_of_Organization"].'</td></tr> '.
+        '<tr><td>Level of Office</td><td>&nbsp;:&nbsp;</td></tr> '.
+        '<tr><td>Location</td><td>&nbsp;:&nbsp;'.$row["Origin"].'</td></tr>'.
+        '<tr><td>Phone No</td><td>&nbsp;:&nbsp;'.$row["Contact_Person_Phone_No"].'</td></tr> '.
+        '<tr><td>Website</td><td>&nbsp;:&nbsp;'.$row["Website"].'</td></tr>'.
         '</table></div>';
     }
     $result->free();
+}
 }
 ?>
 </html>
