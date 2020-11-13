@@ -40,7 +40,31 @@ $query1 = "SELECT * FROM cdb WHERE Name_of_the_Company LIKE '$let%'";
     <div class="border rounded my-10 mx-10">
             <div id="Sort">A</div>
             <hr class="bg-black"/>
-            <div id="Companies"></div>
+            <div id="Companies">
+                <?php
+$con = new mysqli("localhost", "root", "", "Companies");
+/*$city=$_POST['city'];
+$type=$_POST['type'];
+$name=$_POST['c_name'];
+$query2 = "SELECT * FROM `cdb` WHERE `Name_of_the_Company` LIKE '%$name%' AND `Type_of_Organization` LIKE '%$type%' AND `Company_Address` LIKE '%$city%' ORDER BY `Name_of_the_Company`";
+//echo $query;*/
+//$query= $query1." INTERSECT ".$query2;
+if ($result = $con->query($query1)) {
+    while ($row = $result->fetch_assoc()) {
+       
+        echo '<div class="my-4 bg-gray-200 rounded ml-20 mr-20 p-2"><table width="100%">'.
+        '<tr><td width="14%" style="vertical-align: text-top">Industry</td><td width="2%" style="vertical-align: text-top">:</td><td>'.$row["Name_of_the_Company"].'</td></tr>' .
+        '<tr><td width="14%" style="vertical-align: text-top">Company Type</td><td width="2%" style="vertical-align: text-top">:</td><td>'.$row["Type_of_Organization"].'</td></tr> '.
+        '<tr><td width="14%" style="vertical-align: text-top">Level of Office</td><td width="2%" style="vertical-align: text-top">:</td><td></td></tr> '.
+        '<tr><td width="14%" style="vertical-align: text-top">Location</td><td width="2%" style="vertical-align: text-top">:</td><td>'.$row["Origin"].'</td></tr>'.
+        '<tr><td width="14%" style="vertical-align: text-top">Phone No</td><td width="2%" style="vertical-align: text-top">:</td><td>'.$row["Contact_Person_Phone_No"].'</td></tr> '.
+        '<tr><td width="14%" style="vertical-align: text-top">Website</td><td width="2%" style="vertical-align: text-top">:</td><td><a class="text-blue-500 hover:text-blue-800" href="'.$row["Website"].'">'.$row["Website"].'</a></td></tr>'.
+        '</table></div>';
+    }
+    $result->free();
+}
+?>
+            </div>
     </div>
 </body>
 <script>
@@ -55,27 +79,4 @@ $query1 = "SELECT * FROM cdb WHERE Name_of_the_Company LIKE '$let%'";
 
     var details="";
 </script>
-<?php
-$con = new mysqli("localhost", "root", "", "Companies");
-/*$city=$_POST['city'];
-$type=$_POST['type'];
-$name=$_POST['c_name'];
-$query2 = "SELECT * FROM `cdb` WHERE `Name_of_the_Company` LIKE '%$name%' AND `Type_of_Organization` LIKE '%$type%' AND `Company_Address` LIKE '%$city%' ORDER BY `Name_of_the_Company`";
-//echo $query;*/
-//$query= $query1." INTERSECT ".$query2;
-if ($result = $con->query($query1)) {
-    while ($row = $result->fetch_assoc()) {
-       
-        echo '<div class="my-4 bg-gray-200 rounded ml-20 mr-20 p-2"><table>'.
-        '<tr><td>Industry</td><td>&nbsp;:&nbsp;'.$row["Name_of_the_Company"].'</td></tr>' .
-        '<tr><td>Company Type</td><td>&nbsp;:&nbsp;'.$row["Type_of_Organization"].'</td></tr> '.
-        '<tr><td>Level of Office</td><td>&nbsp;:&nbsp;</td></tr> '.
-        '<tr><td>Location</td><td>&nbsp;:&nbsp;'.$row["Origin"].'</td></tr>'.
-        '<tr><td>Phone No</td><td>&nbsp;:&nbsp;'.$row["Contact_Person_Phone_No"].'</td></tr> '.
-        '<tr><td>Website</td><td>&nbsp;:&nbsp;<a class="text-blue-500 hover:text-blue-800" href="'.$row["Website"].'">'.$row["Website"].'</a></td></tr>'.
-        '</table></div>';
-    }
-    $result->free();
-}
-?>
 </html>
