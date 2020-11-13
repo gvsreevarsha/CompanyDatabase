@@ -12,18 +12,17 @@
         <form class="h-50 border rounded my-10 mx-10" method="post" action="index.php">
             <div class="flex flex-wrap justify-center my-10">
                 <input type="text" class="h-12 border rounded p-1 ml-4 sm:my-2 " placeholder="Company Name" name="c_name">
-                <input type="text" class="h-12 border rounded p-1 ml-4 sm:my-2"  placeholder="Select an Industry" name="type">
-                    <!--<?php
-                        $con = new mysqli("localhost", "root", "", "Companies");
-                        $query = "SELECT DISTINCT Type_of_Organization FROM `cdb`";
-                        if ($result = $con->query($query)) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<option value='" . $row['Type_of_Organization'] ."'>" . $row['Type_of_Organization'] ."</option>";
-                            }
-                            $result->free();
-                        }
-                    ?>
-                </select>-->
+                <select type="text" class="h-12 border rounded p-1 ml-4 sm:my-2"  placeholder="Select an Industry" name="type">
+                    <option value="">All Industries</option>
+                    <option value="manufacturing">All Manufacturing Companies</option>
+                    <option value="services">All Services Companies</option>
+                    <option value="advertising">Advertising</option>
+                    <option value="media">Media</option>
+                    <option value="airlines">Airlines</option>
+                    <option value="aviation">Aviation</option>
+                    <option value="defence">Defence</option>
+                    <option value="media">Automobile</option>
+                </select>
                 <input type="text" class="h-12 border rounded p-1 ml-4 sm:my-2" placeholder="Select City" name="city">
                 <button class="rounded border p-2 ml-4 sm:my-2 bg-red-400">Search</button>
             </div>
@@ -45,15 +44,14 @@ $query = "SELECT * FROM `cdb` WHERE `Name_of_the_Company` LIKE '%$name%' AND `Ty
 if ($result = $con->query($query)) {
     while ($row = $result->fetch_assoc()) {
        
-        echo '<div class="my-4 bg-gray-200 rounded ml-20 mr-20 p-2"><table>'.
-        '<tr><td>Industry</td><td>&nbsp;:&nbsp;'.$row["Name_of_the_Company"].'</td></tr>' .
-        '<tr><td>Company Type</td><td>&nbsp;:&nbsp;'.$row["Type_of_Organization"].'</td></tr> '.
-        '<tr><td>Level of Office</td><td>&nbsp;:&nbsp;</td></tr> '.
-        '<tr><td>Location</td><td>&nbsp;:&nbsp;'.$row["Origin"].'</td></tr>'.
-        '<tr><td>Phone No</td><td>&nbsp;:&nbsp;'.$row["Contact_Person_Phone_No"].'</td></tr> '.
-        '<tr><td>Website</td><td>&nbsp;:&nbsp;'.$row["Website"].'</td></tr>'.
-        '</table></div>';
-    }
+        echo '<div class="my-4 bg-gray-200 rounded ml-20 mr-20 p-2"><table width="100%">'.
+        '<tr><td width="13%" style="vertical-align: text-top">Industry</td><td width="2%" style="vertical-align: text-top">:</td><td>'.$row["Name_of_the_Company"].'</td></tr>' .
+        '<tr><td width="13%" style="vertical-align: text-top">Company Type</td><td width="2%" style="vertical-align: text-top">:</td><td>'.$row["Type_of_Organization"].'</td></tr> '.
+        '<tr><td width="13%" style="vertical-align: text-top">Level of Office</td><td width="2%" style="vertical-align: text-top">:</td><td></td></tr> '.
+        '<tr><td width="13%" style="vertical-align: text-top">Location</td><td width="2%" style="vertical-align: text-top">:</td><td>'.$row["Origin"].'</td></tr>'.
+        '<tr><td width="13%" style="vertical-align: text-top">Phone No</td><td width="2%" style="vertical-align: text-top">:</td><td>'.$row["Contact_Person_Phone_No"].'</td></tr> '.
+        '<tr><td width="13%" style="vertical-align: text-top">Website</td><td width="2%" style="vertical-align: text-top">:</td><td><a class="text-blue-500 hover:text-blue-800" href="'.$row["Website"].'">'.$row["Website"].'</a></td></tr>'.
+        '</table></div>';    }
     $result->free();
 }
 }
@@ -61,7 +59,6 @@ else
 {
 $con = new mysqli("localhost", "root", "", "Companies");
 $query = "SELECT * FROM `cdb`";
-//echo $query;
 if ($result = $con->query($query)) {
     while ($row = $result->fetch_assoc()) {
        
@@ -73,7 +70,6 @@ if ($result = $con->query($query)) {
         '<tr><td width="13%" style="vertical-align: text-top">Phone No</td><td width="2%" style="vertical-align: text-top">:</td><td>'.$row["Contact_Person_Phone_No"].'</td></tr> '.
         '<tr><td width="13%" style="vertical-align: text-top">Website</td><td width="2%" style="vertical-align: text-top">:</td><td><a class="text-blue-500 hover:text-blue-800" href="'.$row["Website"].'">'.$row["Website"].'</a></td></tr>'.
         '</table></div>';
-
     }
     $result->free();
 }
@@ -85,7 +81,6 @@ if ($result = $con->query($query)) {
 <script>
     var i;
     var b="<span class='ml-2 text-white p-2 my-2'>Sort By Company Name ></span>";
-    var url="";
     for(i=0;i<26;i++){
         b+="<a href='search.php?let="+String.fromCharCode(65+i)+"'><button class='ml-2 text-white p-2 hover:bg-red-400 my-2'>"+String.fromCharCode(65+i)+"</button></a>";
     }
