@@ -1,3 +1,4 @@
+<?php require 'header.php'?>
 <?php
 $con = new mysqli("localhost", "root", "", "Companies");
 if(isset($_GET['page']))
@@ -106,4 +107,4 @@ $query1 = "SELECT * FROM cdb WHERE Name_of_the_Company LIKE '$let%' LIMIT ".$sta
     document.getElementById("pagination").innerHTML=b;
     var details="";
 </script>
-</html>
+<?php require 'footer.php'?>
