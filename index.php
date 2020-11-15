@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    <title>Company Database</title>
-</head>
+<?php require 'header.php'?>
 <body class="bg-gradient-to-r from-teal-400 to-blue-500">
     <div>
         <form class="h-50 border rounded my-10 mx-10" method="GET" action="index.php">
