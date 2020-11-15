@@ -66,7 +66,7 @@
                     $row_cnt=$result->num_rows;
                 }
                 $start=50*($page-1);
-                $query = "SELECT * FROM `cdb` WHERE `Name_of_the_Company` LIKE '%$name%' AND `Type_of_Organization` LIKE '%$type%' AND `Company_Address` LIKE '%$city%' ORDER BY `Name_of_the_Company` LIMIT ".$start.",50";
+                $query = "SELECT * FROM `cdb` WHERE `Name_of_the_Company` LIKE '%$name%' AND `Type_of_Organization` LIKE '%$type%' AND `Origin` LIKE '%$city%' ORDER BY `Name_of_the_Company` LIMIT ".$start.",50";
                 if ($result = $con->query($query)) {
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class="my-4 bg-gray-200 rounded ml-20 mr-20 p-2"><table width="100%">'.

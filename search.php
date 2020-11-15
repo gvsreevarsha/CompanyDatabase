@@ -1,10 +1,19 @@
 <?php
 $con = new mysqli("localhost", "root", "", "Companies");
+if(isset($_GET['page']))
+    $page=$_GET['page'];
+else
+    $page=1;
 if(isset($_GET['let']))
 $let = $_GET['let'];
 else
 $let='';
 $query1 = "SELECT * FROM cdb WHERE Name_of_the_Company LIKE '$let%'";
+if ($result = $con->query($query1)) {
+    $row_cnt=$result->num_rows;
+}
+$start=50*($page-1);
+$query1 = "SELECT * FROM cdb WHERE Name_of_the_Company LIKE '$let%' LIMIT ".$start.",50";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +25,7 @@ $query1 = "SELECT * FROM cdb WHERE Name_of_the_Company LIKE '$let%'";
 </head>
 <body class="bg-gradient-to-r from-teal-400 to-blue-500">
     <div>
-        <form class="h-50 border rounded my-10 mx-10" method="post" action="index.php">
+        <form class="h-50 border rounded my-10 mx-10" method="GET" action="index.php">
             <div class="flex flex-wrap justify-center my-10">
                 <input type="text" class="h-12 border rounded p-1 ml-4 sm:my-2 " placeholder="Company Name" name="c_name">
                 <select class="h-12 border rounded p-1 ml-4 sm:my-2 text-gray-500"  placeholder="Select an Industry" name="type">
@@ -52,6 +61,7 @@ $query1 = "SELECT * FROM cdb WHERE Name_of_the_Company LIKE '$let%'";
     <div class="border rounded my-10 mx-10">
             <div id="Sort">A</div>
             <hr class="bg-black"/>
+            <div id="pagination" class="p-2" align="right"></div>
             <div id="Companies">
                 <?php
                     $con = new mysqli("localhost", "root", "", "Companies");
@@ -72,10 +82,21 @@ $query1 = "SELECT * FROM cdb WHERE Name_of_the_Company LIKE '$let%'";
     var url="";
     for(i=0;i<26;i++){
         b+="<a href='search.php?let="+String.fromCharCode(65+i)+"'><button class='ml-2 text-white p-2 hover:bg-red-400 my-2'>"+String.fromCharCode(65+i)+"</button></a>";
-        console.log(i);
     }
     document.getElementById("Sort").innerHTML=b;
 
+    var details="";
+</script>
+<script>
+    var i;
+    var b="";
+    var let="<?php echo $_GET['let'];?>";
+    var num="<?php echo $row_cnt;?>";
+    for(i=1;i<num/50+1;i++){
+        b+="<a href='search.php?let="+let+"&page="+i+"'><button class='text-white p-1 hover:bg-red border'>"+i+"</button></a>";
+    }
+    b+="&emsp;";
+    document.getElementById("pagination").innerHTML=b;
     var details="";
 </script>
 </html>
