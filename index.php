@@ -124,4 +124,4 @@
     document.getElementById("pagination").innerHTML=b;
     var details="";
 </script>
-</html>
+<?php require 'footer.php'?>
