@@ -20,10 +20,11 @@ $query1 = "SELECT * FROM cdb WHERE Name_of_the_Company LIKE '$let%'";
         <form class="h-50 border rounded my-10 mx-10" method="post" action="index.php">
             <div class="flex flex-wrap justify-center my-10">
                 <input type="text" class="h-12 border rounded p-1 ml-4 sm:my-2 " placeholder="Company Name" name="c_name">
-                <input type="text" class="h-12 border rounded p-1 ml-4 sm:my-2"  placeholder="Select an Industry" name="type">
-                    <!--<?php
+                <select class="h-12 border rounded p-1 ml-4 sm:my-2 text-gray-500"  placeholder="Select an Industry" name="type">
+                    <option value=''>Select a Industry</option>
+                    <?php
                         $con = new mysqli("localhost", "root", "", "Companies");
-                        $query = "SELECT DISTINCT Type_of_Organization FROM `cdb`";
+                        $query="SELECT DISTINCT `Type_of_Organization` FROM `cdb` WHERE LENGTH(`Type_of_Organization`)<51 ORDER BY LENGTH(`Type_of_Organization`)";
                         if ($result = $con->query($query)) {
                             while ($row = $result->fetch_assoc()) {
                                 echo "<option value='" . $row['Type_of_Organization'] ."'>" . $row['Type_of_Organization'] ."</option>";
@@ -31,8 +32,20 @@ $query1 = "SELECT * FROM cdb WHERE Name_of_the_Company LIKE '$let%'";
                             $result->free();
                         }
                     ?>
-                </select>-->
-                <input type="text" class="h-12 border rounded p-1 ml-4 sm:my-2" placeholder="Select City" name="city">
+                </select>
+                <select class="h-12 border rounded p-1 ml-4 sm:my-2 text-gray-500"  placeholder="Select City" name="city">
+                    <option value=''>Select a city</option>
+                    <?php
+                        $con = new mysqli("localhost", "root", "", "Companies");
+                        $query="SELECT DISTINCT `Origin` FROM `cdb` WHERE LENGTH(`Origin`)<51 ORDER BY LENGTH(`Origin`)";
+                        if ($result = $con->query($query)) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<option value='" . $row['Origin'] ."'>" . $row['Origin'] ."</option>";
+                            }
+                            $result->free();
+                        }
+                    ?>
+                </select>
                 <button class="rounded border p-2 ml-4 sm:my-2 bg-red-400">Search</button>
             </div>
         </form>
